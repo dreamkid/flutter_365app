@@ -60,15 +60,47 @@ class GuidePage extends StatefulWidget {
 }
 
 class _GuideState extends State<GuidePage> {
+  
+  Container createChildView(String image){
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Center(
+        child: Image(image: AssetImage(image),fit: BoxFit.cover),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    var childWidgets = [createChildView('images/3.0x/img_page1.png'),
+      createChildView('images/3.0x/img_page2.webp'),
+      createChildView('images/3.0x/img_page3.webp'),
+      createChildView('images/3.0x/img_page4.webp')];
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Image(image: AssetImage('images/3.0x/img_page1.png'),fit: BoxFit.cover,),
-      ),
+      body:
+      PageView(
+        scrollDirection: Axis.horizontal,
+        reverse: false,
+        controller: PageController(
+          initialPage: 0,
+          viewportFraction: 1,
+          keepPage: true,
+        ),
+        physics: BouncingScrollPhysics(),
+        pageSnapping: true,
+        onPageChanged: (index){
+
+        },
+        children: childWidgets,
+      )
+      // Container(
+      //
+      //   width: double.infinity,
+      //   height: double.infinity,
+      //   child: Image(image: AssetImage('images/3.0x/img_page1.png'),fit: BoxFit.cover,),
+      // ),
     );
   }
 }
