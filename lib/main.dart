@@ -79,8 +79,7 @@ class _GuideState extends State<GuidePage> {
       createChildView('images/3.0x/img_page3.webp'),
       createChildView('images/3.0x/img_page4.webp')];
     return Scaffold(
-      body:
-      PageView(
+      body: PageView(
         scrollDirection: Axis.horizontal,
         reverse: false,
         controller: PageController(
@@ -88,7 +87,7 @@ class _GuideState extends State<GuidePage> {
           viewportFraction: 1,
           keepPage: true,
         ),
-        physics: BouncingScrollPhysics(),
+        physics: ClampingScrollPhysics(),
         pageSnapping: true,
         onPageChanged: (index){
 
