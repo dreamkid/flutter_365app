@@ -9,7 +9,7 @@
     </item>
 
     <item
-        android:bottom="100dp">
+        android:bottom="50dp">
         <bitmap android:src="@mipmap/bg_launcher"
             android:gravity="center"/>
     </item>

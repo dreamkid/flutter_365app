@@ -2,15 +2,18 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_365app/routes/HomeRouter.dart';
 
 void main() {
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -36,23 +39,6 @@ class MyApp extends StatelessWidget {
 }
 
 class GuidePage extends StatefulWidget {
-  // @override
-  // Widget build(BuildContext context) {
-  //   SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-  //   return Scaffold(
-  //     body:
-  //       // Image(image: AssetImage('images/3.0x/img_page1.png'),fit: BoxFit.fill),
-  //     Container(
-  //       width: double.infinity,
-  //       height: double.infinity,
-  //       child: Image(image: AssetImage('images/3.0x/img_page1.png'),fit: BoxFit.cover),
-  //     ),
-  //     // Center(
-  //     //   child: Image(image: AssetImage('images/3.0x/img_page1.png')),
-  //     // ),
-  //   );
-  // }
-
   @override
   State<StatefulWidget> createState() {
     return _GuideState();
@@ -60,47 +46,60 @@ class GuidePage extends StatefulWidget {
 }
 
 class _GuideState extends State<GuidePage> {
-  
-  Container createChildView(String image){
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      child: Center(
-        child: Image(image: AssetImage(image),fit: BoxFit.cover),
-      ),
-    );
-  }
+  PageController pageController;
+  int currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    var childWidgets = [createChildView('images/3.0x/img_page1.png'),
-      createChildView('images/3.0x/img_page2.webp'),
-      createChildView('images/3.0x/img_page3.webp'),
-      createChildView('images/3.0x/img_page4.webp')];
-    return Scaffold(
-      body: PageView(
-        scrollDirection: Axis.horizontal,
-        reverse: false,
-        controller: PageController(
-          initialPage: 0,
-          viewportFraction: 1,
-          keepPage: true,
-        ),
-        physics: ClampingScrollPhysics(),
-        pageSnapping: true,
-        onPageChanged: (index){
+    // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
+    return Scaffold(
+        body: Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: PageView.builder(
+        onPageChanged: (int index) {
+          currentPage = index;
         },
-        children: childWidgets,
-      )
-      // Container(
-      //
-      //   width: double.infinity,
-      //   height: double.infinity,
-      //   child: Image(image: AssetImage('images/3.0x/img_page1.png'),fit: BoxFit.cover,),
-      // ),
+        reverse: false,
+        physics: ClampingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        controller: pageController,
+        itemCount: 4,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(// 由GestureDetector包裹可监听点击事件
+            child: Image.asset(
+              "images/img_page${index + 1}.webp",
+              fit: BoxFit.cover,
+            ),
+            onTap: (){
+              print("index = $index");
+              if(index == 3){
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return HomeRouter();
+                }));
+              }
+            },
+          );
+          // Image(image: AssetImage("images/img_page${index+1}.png"),fit: BoxFit.cover);
+        },
+      ),
+    ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController(
+      initialPage: 0,
+      keepPage: true,
     );
+
+    pageController.addListener(() {
+      double offset = pageController.offset;
+      var page = pageController.page;
+      print("offset=$offset page$page");
+    });
   }
 }
 
