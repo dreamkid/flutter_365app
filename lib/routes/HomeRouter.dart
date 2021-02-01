@@ -5,11 +5,7 @@ import 'package:flutter/services.dart';
 class HomeRouter extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top,SystemUiOverlay.bottom]);
-    // SystemUiOverlayStyle systemUiOverlayStyle =
-    // SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-    // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return SafeArea(child: Scaffold(
       appBar: AppBar(
         title: Text("首页"),
