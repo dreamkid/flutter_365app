@@ -34,6 +34,10 @@ class MyApp extends StatelessWidget {
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
       home: GuidePage(),
+      routes: {
+        '/guide':(context)=> GuidePage(),
+        '/home':(context)=> HomeRouter(),
+      },
     );
   }
 }
@@ -75,6 +79,8 @@ class _GuideState extends State<GuidePage> {
             onTap: (){
               print("index = $index");
               if(index == 3){
+                // Navigator.popAndPushNamed(context, '/home');
+                // Navigator.pushReplacementNamed(context, '/home');
                 Navigator.push(context, MaterialPageRoute(builder: (context){
                   return HomeRouter();
                 }));
