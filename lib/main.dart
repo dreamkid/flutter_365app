@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     var isGuide = Global.prefs.getBool("isGuide")??false;
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -47,7 +46,7 @@ class MyApp extends StatelessWidget {
         // visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home:isGuide? HomeRouter() : GuidePage(),
+      home:isGuide? HomePage() : GuidePage(),
     );
   }
 }

@@ -24,7 +24,7 @@ class _GuideState extends State<GuidePage> {
         if (_currentPage == 3) {
           Global.prefs.setBool("isGuide", true);
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return HomeRouter();
+            return HomePage();
           }));
         }
       },
